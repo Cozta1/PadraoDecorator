@@ -1,117 +1,122 @@
-package main.java;
+package test.java;
 
 import main.java.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PersonagemTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    private Personagem personagem;
-
-    @Before
-    public void setUp() {
-        personagem = new PersonagemBase(100.0f);
-    }
-
+class PersonagemTest {
 
     @Test
-    public void testPersonagemBaseVida() {
-        Assert.assertEquals(100.0f, personagem.vidaTotal(), 0.0f);
+    void deveRetornarVidaTotalPersonagem() {
+        Personagem personagem = new PersonagemBase(100.0f);
+
+        assertEquals(100.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testPersonagemBaseNome() {
-        Assert.assertEquals("Personagem", personagem.getNome());
-    }
+    void deveRetornarVidaTotalPersonagemComArma() {
+        Personagem personagem = new Arma(new PersonagemBase(100.0f));
 
-
-    @Test
-    public void testArmaVida() {
-        Personagem comArma = new Arma(personagem);
-        Assert.assertEquals(150.0f, comArma.vidaTotal(), 0.0f);
+        assertEquals(150.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testArmaNome() {
-        Personagem comArma = new Arma(personagem);
-        Assert.assertEquals("Personagem/Arma", comArma.getNome());
-    }
+    void deveRetornarVidaTotalPersonagemComArmadura() {
+        Personagem personagem = new Armadura(new PersonagemBase(100.0f));
 
-
-    @Test
-    public void testArmaduraVida() {
-        Personagem comArmadura = new Armadura(personagem);
-        Assert.assertEquals(130.0f, comArmadura.vidaTotal(), 0.0f);
+        assertEquals(130.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testArmaduraNome() {
-        Personagem comArmadura = new Armadura(personagem);
-        Assert.assertEquals("Personagem/Armadura", comArmadura.getNome());
-    }
+    void deveRetornarVidaTotalPersonagemComMagia() {
+        Personagem personagem = new Magia(new PersonagemBase(100.0f));
 
-
-    @Test
-    public void testMagiaVida() {
-        Personagem comMagia = new Magia(personagem);
-        Assert.assertEquals(120.0f, comMagia.vidaTotal(), 0.0f);
+        assertEquals(120.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testMagiaNome() {
-        Personagem comMagia = new Magia(personagem);
-        Assert.assertEquals("Personagem/Magia", comMagia.getNome());
-    }
+    void deveRetornarVidaTotalPersonagemComEscudo() {
+        Personagem personagem = new Escudo(new PersonagemBase(100.0f));
 
-
-    @Test
-    public void testEscudoVida() {
-        Personagem comEscudo = new Escudo(personagem);
-        Assert.assertEquals(115.0f, comEscudo.vidaTotal(), 0.0f);
+        assertEquals(115.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testEscudoNome() {
-        Personagem comEscudo = new Escudo(personagem);
-        Assert.assertEquals("Personagem/Escudo", comEscudo.getNome());
-    }
+    void deveRetornarVidaTotalPersonagemComArmaMaisArmadura() {
+        Personagem personagem = new Armadura(new Arma(new PersonagemBase(100.0f)));
 
-
-    @Test
-    public void testArmaArmaduraVida() {
-        Personagem comArmaArmadura = new Armadura(new Arma(personagem));
-        Assert.assertEquals(180.0f, comArmaArmadura.vidaTotal(), 0.0f);
+        assertEquals(180.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testArmaArmaduraNome() {
-        Personagem comArmaArmadura = new Armadura(new Arma(personagem));
-        Assert.assertEquals("Personagem/Arma/Armadura", comArmaArmadura.getNome());
+    void deveRetornarVidaTotalPersonagemComArmaMaisMagia() {
+        Personagem personagem = new Magia(new Arma(new PersonagemBase(100.0f)));
+
+        assertEquals(170.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testArmaMagiaVida() {
-        Personagem comArmaMagia = new Magia(new Arma(personagem));
-        Assert.assertEquals(170.0f, comArmaMagia.vidaTotal(), 0.0f);
+    void deveRetornarVidaTotalPersonagemComArmaMaisArmaduraMaisMagiaMaisEscudo() {
+        Personagem personagem = new Escudo(new Magia(new Armadura(new Arma(new PersonagemBase(100.0f)))));
+
+        assertEquals(215.0f, personagem.vidaTotal());
     }
 
     @Test
-    public void testArmaMagiaNome() {
-        Personagem comArmaMagia = new Magia(new Arma(personagem));
-        Assert.assertEquals("Personagem/Arma/Magia", comArmaMagia.getNome());
-    }
+    void deveRetornarNomePersonagem() {
+        Personagem personagem = new PersonagemBase();
 
-
-    @Test
-    public void testTodosItensVida() {
-        Personagem completo = new Escudo(new Magia(new Armadura(new Arma(personagem))));
-        Assert.assertEquals(215.0f, completo.vidaTotal(), 0.0f);
+        assertEquals("Personagem", personagem.getNome());
     }
 
     @Test
-    public void testTodosItensNome() {
-        Personagem completo = new Escudo(new Magia(new Armadura(new Arma(personagem))));
-        Assert.assertEquals("Personagem/Arma/Armadura/Magia/Escudo", completo.getNome());
+    void deveRetornarNomePersonagemComArma() {
+        Personagem personagem = new Arma(new PersonagemBase());
+
+        assertEquals("Personagem/Arma", personagem.getNome());
     }
+
+    @Test
+    void deveRetornarNomePersonagemComArmadura() {
+        Personagem personagem = new Armadura(new PersonagemBase());
+
+        assertEquals("Personagem/Armadura", personagem.getNome());
+    }
+
+    @Test
+    void deveRetornarNomePersonagemComMagia() {
+        Personagem personagem = new Magia(new PersonagemBase());
+
+        assertEquals("Personagem/Magia", personagem.getNome());
+    }
+
+    @Test
+    void deveRetornarNomePersonagemComEscudo() {
+        Personagem personagem = new Escudo(new PersonagemBase());
+
+        assertEquals("Personagem/Escudo", personagem.getNome());
+    }
+
+    @Test
+    void deveRetornarNomePersonagemComArmaMaisArmadura() {
+        Personagem personagem = new Armadura(new Arma(new PersonagemBase()));
+
+        assertEquals("Personagem/Arma/Armadura", personagem.getNome());
+    }
+
+    @Test
+    void deveRetornarNomePersonagemComArmaMaisMagia() {
+        Personagem personagem = new Magia(new Arma(new PersonagemBase()));
+
+        assertEquals("Personagem/Arma/Magia", personagem.getNome());
+    }
+
+    @Test
+    void deveRetornarNomePersonagemComArmaMaisArmaduraMaisMagiaMaisEscudo() {
+        Personagem personagem = new Escudo(new Magia(new Armadura(new Arma(new PersonagemBase()))));
+
+        assertEquals("Personagem/Arma/Armadura/Magia/Escudo", personagem.getNome());
+    }
+
 }
